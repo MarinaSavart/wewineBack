@@ -1,0 +1,20 @@
+Le "i" dans une commande npm = install
+Le "--save-dev" dans une commande d'installation npm = sauvegarder en tant que dépendance de développement seulement
+Les installations requisent (pour l'instant):
+    - npm init -y
+        -> creer un package.json
+
+    - npm i express
+        -> framework pour routes et requette
+
+    - npm i body-parser
+        -> une library pour utiliser les corps ( body ) de requettes
+
+    - npm i --save-dev nodemon
+        -> auto rafraichissement du serveur
+
+    -npm i --save-dev morgan
+        -> mogan permet de log toute requete entrante
+        
+    - npm install --save mongoose
+        -> bdd
