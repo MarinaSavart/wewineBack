@@ -5,6 +5,7 @@ const JWT = require('jsonwebtoken');
 
 // se connecter
 exports.signup = (req, res, next) => {
+    console.log(req.body);
     User.findOne({ mail: req.body.mail})
         .then(user => {
             if(!user){
@@ -71,7 +72,17 @@ exports.signin = (req, res, next) => {
     })
     .then(result => {
         res.status(201).json({
-            message: 'Nouveau utilisateur'
+            message: 'Nouveau utilisateur',
+            // token: JWT.sign(
+            //     {
+            //         userId: user._id,
+            //         mail: user.mail
+            //     },
+            //     process.env.JWT_KEY,
+            //     {
+            //         expiresIn: "10h"
+            //     }
+            // )
         });
     })
     .catch(err => {

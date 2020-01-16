@@ -5,6 +5,8 @@ const app = express();
 // import de la base de donnée
 const mongoose = require('mongoose');
 
+const cors = require('cors');
+
 // connection a la base de donnée
 mongoose.connect('mongodb+srv://admin:' + process.env.MONGOO_ATLAS_PW + '@cluster0-e0vot.mongodb.net/test?retryWrites=true&w=majority',
 { 
@@ -20,9 +22,12 @@ mongoose.connect('mongodb+srv://admin:' + process.env.MONGOO_ATLAS_PW + '@cluste
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 
-app.use(bodyParser.json());
+
 // mogan permet de log toute requete entrante
 app.use(morgan('dev'));
+app.use(bodyParser.json());
+app.use(cors());
+
 
 // import ROUTE
 const userRoutes = require("./api/routes/user");
@@ -32,6 +37,7 @@ const bottlesRoute = require('./api/routes/bottles');
 app.use("/users", userRoutes);
 app.use("/cellars", cellarRoute);
 app.use("/bottles", bottlesRoute);
+
 
 // message d'erreur
 app.use((req, res, next) => {
