@@ -18,3 +18,6 @@ Les installations requisent (pour l'instant):
         
     - npm install --save mongoose
         -> bdd
+
+    -npm i --save bcrypt
+        -> cryptage du mot de passe

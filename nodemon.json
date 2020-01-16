@@ -1,5 +1,6 @@
 {
     "env": {
-        "MONGOO_ATLAS_PW": "wewine"
+        "MONGOO_ATLAS_PW": "wewine",
+        "JWT_KEY": "patate"
     }
 }

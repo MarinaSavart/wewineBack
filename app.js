@@ -9,7 +9,8 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb+srv://admin:' + process.env.MONGOO_ATLAS_PW + '@cluster0-e0vot.mongodb.net/test?retryWrites=true&w=majority',
 { 
     useNewUrlParser: true,
-    useUnifiedTopology: true 
+    useUnifiedTopology: true ,
+    useCreateIndex: true
 })
 .then(() => console.log('Connexion à MongoDB réussie !'))
 .catch(() => console.log('Connexion à MongoDB échouée !'));
@@ -17,10 +18,8 @@ mongoose.connect('mongodb+srv://admin:' + process.env.MONGOO_ATLAS_PW + '@cluste
 
 // imoprt bodyParser pour decoder le Json
 const bodyParser = require('body-parser');
-
 const morgan = require('morgan');
 
-// app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // mogan permet de log toute requete entrante
 app.use(morgan('dev'));
