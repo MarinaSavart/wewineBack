@@ -1,21 +1,19 @@
-// import express
 const express = require('express');
-// import router
 const router = express.Router();
 const checkAuth = require('../middlewares/check-auth');
 const usersController = require('../controller/usersController');
 
 
-// login
+// connexion
 router.post('/login', usersController.signup);
 
-// creation d'un user
+// inscription
 router.post("/register", usersController.signin);
 
-// update user
+// modifier un utilisateur
 router.patch('/:userId', checkAuth, usersController.update_user);
 
-// delete un user
+// supprimer un utilisateur
 router.delete('/:userId', checkAuth, usersController.delete_user);
 
 // export router

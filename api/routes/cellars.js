@@ -1,22 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const cellarsController = require('../controller/cellarsController');
-
 const checkAuth = require('../middlewares/check-auth');
 
-// route pour afficher tout les boutelles
+// afficher toute les boutelles
 router.get('/', checkAuth, cellarsController.display_all_cellars);
 
-// recupérer une cave par son id
+// afficher une cave grave a son id
 router.get('/:cellarId',  checkAuth, cellarsController.display_one);
 
 // creation d'une cave
 router.post('/create', checkAuth, cellarsController.create_cellar);
 
-// update cellar
+// modifier d'une cave
 router.patch('/:cellarId', checkAuth, cellarsController.update_cellar );
 
-// delete une cave
+// supprimer une cave
 router.delete('/:cellarId', checkAuth, cellarsController.delete_cellar);
 
 module.exports = router;

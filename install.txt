@@ -1,6 +1,7 @@
 Le "i" dans une commande npm = install
 Le "--save-dev" dans une commande d'installation npm = sauvegarder en tant que dépendance de développement seulement
 Les installations requisent (pour l'instant):
+
     - npm init -y
         -> creer un package.json
 
@@ -12,6 +13,9 @@ Les installations requisent (pour l'instant):
 
     - npm i --save-dev nodemon
         -> auto rafraichissement du serveur
+        -> aller dans le fichier package.json pour ajouter dans la baslise script  
+                            "start": "nodemon server.js" 
+                                ceci permettra de lancer lancer le server en faisant un "npm start"
 
     -npm i --save-dev morgan
         -> mogan permet de log toute requete entrante
@@ -21,3 +25,6 @@ Les installations requisent (pour l'instant):
 
     -npm i --save bcrypt
         -> cryptage du mot de passe
+
+    -npm i cors
+        -> pour les autorisations cors

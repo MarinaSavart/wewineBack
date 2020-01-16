@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 // import de la base de donnée
 const mongoose = require('mongoose');
-
+// import cors
 const cors = require('cors');
 
 // connection a la base de donnée
@@ -20,26 +20,29 @@ mongoose.connect('mongodb+srv://admin:' + process.env.MONGOO_ATLAS_PW + '@cluste
 
 // imoprt bodyParser pour decoder le Json
 const bodyParser = require('body-parser');
+
+// import de morgan
+// mogan permet de log toute requete entrante
 const morgan = require('morgan');
 
-
-// mogan permet de log toute requete entrante
+// utilisation des import
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(cors());
 
 
-// import ROUTE
+// importdes fichiers routes pour creer des routes
 const userRoutes = require("./api/routes/user");
 const cellarRoute = require("./api/routes/cellars");
 const bottlesRoute = require('./api/routes/bottles');
 
+// instentiation des routes
 app.use("/users", userRoutes);
 app.use("/cellars", cellarRoute);
 app.use("/bottles", bottlesRoute);
 
 
-// message d'erreur
+// message d'erreur 404
 app.use((req, res, next) => {
     const error = new Error('404 Not found');
     error.status = 404;
@@ -47,7 +50,7 @@ app.use((req, res, next) => {
     next(error);
 });
 
-//
+// message d'erreur interne 500
 app.use((error, req, res, next) => {
 
     res.status(error.status || 500);

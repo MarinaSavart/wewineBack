@@ -28,7 +28,7 @@ exports.display_all_bottle = (req, res, next) => {
         });
 };
 
-// afficher une bouteille par son id
+// afficher une bouteille en founction de son id
 exports.display_one = (req, res, next) => {
     Bottle.findById({ _id: req.params.id })
     .then( doc => {
@@ -43,7 +43,7 @@ exports.display_one = (req, res, next) => {
     })
 };
 
-// creation d'une bouteille
+// creer une bouteille
 exports.create_bottle = (req, res, next) => {
 
     const bottle = new Bottle({
@@ -72,7 +72,7 @@ exports.create_bottle = (req, res, next) => {
         });
 };
 
-// update bottel
+// modifier une bouteille
 exports.update_bottle = (req, res, next) => {
 
     const updateOps = {};
@@ -93,7 +93,7 @@ exports.update_bottle = (req, res, next) => {
         })
 };
 
-// delete bottle 
+// supprimer une bouteille
 exports.delete_bottle = (req, res, next) => {
     
     Bottle.remove({ _id: req.params.bottleId})

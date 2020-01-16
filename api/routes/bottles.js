@@ -4,19 +4,19 @@ const checkAuth = require('../middlewares/check-auth');
 const bottlesController = require('../controller/bottlesController');
 
 
-// afficher tout les bouteilles
+// afficher toute les bouteilles
 router.get('/', checkAuth, bottlesController.display_all_bottle);
 
 // afficher un bouteille en founction de son id
 router.get("/:id", checkAuth, bottlesController.display_one);
 
-// create bottle
+// creer une bouteille
 router.post('/', checkAuth, bottlesController.create_bottle);
 
-// update bottle
+// modifier une bouteille
 router.patch('/:bottleId', checkAuth, bottlesController.update_bottle);
 
-// delete bouttel
+// supprimer une bouteille
 router.delete('/:bottleId', checkAuth, bottlesController.delete_bottle);
 
 module.exports = router;
