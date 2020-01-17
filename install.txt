@@ -21,7 +21,7 @@ Les installations requisent (pour l'instant):
         -> mogan permet de log toute requete entrante
         
     - npm install --save mongoose
-        -> bdd
+        -> manipulition de la base de bonnée
 
     -npm i --save bcrypt
         -> cryptage du mot de passe

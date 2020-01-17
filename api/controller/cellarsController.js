@@ -73,7 +73,7 @@ exports.update_cellar = (req, res, next) => {
         updateOps[ops.propsName] = ops.value;
     }
 
-    Cellar.update({ _id: req.params.cellarId,  userId: req.userData.userId}, { $set: updateOps})
+    Cellar.update({ _id: req.params.cellarId,  userId: req.userData.userId}, { $set: updateOps })
         .then(result => {
             console.log(result);
             res.status(200).json(result);

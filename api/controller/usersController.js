@@ -5,7 +5,7 @@ const JWT = require('jsonwebtoken');
 
 // se connecter
 exports.signup = (req, res, next) => {
-    console.log(req.body);
+    
     User.findOne({ mail: req.body.mail })
         .then(user => {
             if(!user){
@@ -141,3 +141,12 @@ exports.delete_user = (req, res, next) => {
             })
         })
 };
+
+exports.verify_token = (req, res, next) => {
+
+    res.status(200).json({
+        isVerified: true,
+        data: req.userData
+    });
+
+}

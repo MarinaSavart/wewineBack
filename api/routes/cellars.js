@@ -3,16 +3,16 @@ const router = express.Router();
 const cellarsController = require('../controller/cellarsController');
 const checkAuth = require('../middlewares/check-auth');
 
-// afficher toute les boutelles
+// afficher toutes les caves
 router.get('/', checkAuth, cellarsController.display_all_cellars);
 
-// afficher une cave grave a son id
+// afficher une cave en fonction de son id
 router.get('/:cellarId',  checkAuth, cellarsController.display_one);
 
-// creation d'une cave
+// creation une cave
 router.post('/create', checkAuth, cellarsController.create_cellar);
 
-// modifier d'une cave
+// modifier une cave
 router.patch('/:cellarId', checkAuth, cellarsController.update_cellar );
 
 // supprimer une cave

@@ -16,5 +16,8 @@ router.patch('/:userId', checkAuth, usersController.update_user);
 // supprimer un utilisateur
 router.delete('/:userId', checkAuth, usersController.delete_user);
 
+// verify
+router.get("/verify", checkAuth, usersController.verify_token)
+
 // export router
 module.exports = router;
