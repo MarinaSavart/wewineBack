@@ -28,3 +28,6 @@ Les installations requisent (pour l'instant):
 
     -npm i cors
         -> pour les autorisations cors
+
+    -npm i --save jsonwebtoken
+        -> pour les token

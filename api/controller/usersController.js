@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const User = require('../models/user');
 const JWT = require('jsonwebtoken');
+const Cellars = require('./cellarsController');
 
 // se connecter
 exports.signup = (req, res, next) => {
@@ -117,7 +118,7 @@ exports.update_user = (req, res, next) => {
         updateOps[ops.propsName] = ops.value;
     }
 
-    User.update({ _id: req.params.userId }, { $set: updateOps})
+    User.update({ _id: req.userData.userId }, { $set: updateOps})
         .then(result => {
             res.status(200).json(result);
         })
@@ -140,6 +141,26 @@ exports.delete_user = (req, res, next) => {
                 error: err
             })
         })
+};
+
+// afficher un user
+exports.display_one = (req, res, next) => {
+    User.findById({
+        _id: req.userData.userId
+    })
+    .then(doc => {
+        console.log("From database:", doc);
+
+        res.status(200).json(doc);
+       
+    })
+    .catch(err => {
+        console.log(err);
+
+        res.status(500).json({
+            error: err
+        })
+    });
 };
 
 exports.verify_token = (req, res, next) => {
