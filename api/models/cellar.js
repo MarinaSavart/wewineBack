@@ -1,10 +1,11 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-const cellarSchema = mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
-    name: {type: String, required: true},
-    maxContent: {type: Number, required: true},
-    userId: { type: mongoose.Types.ObjectId, required: true}
+const cellarSchema = Schema({
+    _id: Schema.Types.ObjectId,
+    name: { type: String, required: true },
+    maxContent: { type: Number, required: true },
+    userId: { type: Schema.Types.ObjectId, required: true },
+    bottlesId: [{ type: Schema.Types.ObjectId, ref: "Bottle" }]
 });
 
-module.exports = mongoose.model('Cellar', cellarSchema);
+module.exports = model('Cellar', cellarSchema);

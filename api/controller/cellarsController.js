@@ -1,92 +1,37 @@
 const mongoose = require('mongoose');
+
 const Cellar = require('../models/cellar');
-const Bottle = require('../models/bottle');
-const BottleCellar = require('../models/bottleCellar');
 
 // afficher toute les caves
-exports.display_all_cellars = (req, res, next) => {
+exports.get_all_cellars = (req, res, next) => {
 
     console.log(req.userData);
 
     Cellar.find({
-
         userId: req.userData.userId
-        })
-        .then(docs => {
-            console.log(docs);
+    })
+        .populate('Bottle')
+        .then(cellars => {
+            console.log(cellars);
 
-            res.status(200).json(docs);
-        })
-        .catch(err => {
-            console.log(err);
-
-            res.status(500).json({
-                error: err
-            })
-        })
-};
-
-// afficher une cave avec son id
-exports.display_one = (req, res, next) => {
-    Cellar.find({
-            _id: req.params.cellarId,
-            userId: req.userData.userId
-        })
-        .then(doc => {
-            console.log("From database:", doc);
-
-            res.status(200).json(doc);
-        })
-        .catch(err => {
-            console.log(err);
-
-            res.status(500).json({
-                error: err
-            })
-        });
-};
-
-exports.get_content = (req, res, next) => {
-    BottleCellar.find({
-            idCellar: req.params.cellarId
-        })
-        .then(doc => {
-            var bottles = [];
-            doc.forEach(bottle => {
-                Bottle.findById(bottle.idBottle, (err, document) => {
-                    bottles.push(document);
-                    res.status(200).json({
-                        bottles: bottles
-                    })
-                })
+            res.status(200).json({
+                count: cellars.length,
+                cellars: cellars.map(cellar => ({
+                    _cellarId: cellar._id,
+                    name: cellar.name,
+                    maxContent: cellar.maxContent,
+                    bottles: cellar.bottlesId
+                }))
             });
         })
         .catch(err => {
-            res.status(400).json({
+            console.log(err);
+
+            res.status(500).json({
                 error: err
             })
         })
-}
-
-exports.add_bottle_in_cellar = (req, res, next) => {
-    const bottle = new BottleCellar({
-        idCellar: req.body.idCellar,
-        idBottle: req.body.idBottle
-    });
-
-    bottle.save()
-        .then(result => {
-            res.status(201).json({
-                message: result
-            })
-        })
-        .catch(err => {
-            res.status(400).json({
-                err: err
-            })
-        })
-}
-
+};
 
 // creer une cave
 exports.create_cellar = (req, res, next) => {
@@ -120,7 +65,7 @@ exports.update_cellar = (req, res, next) => {
 
     const updateOps = {};
     for (const ops of req.body) {
-        updateOps[ops.propsName] = ops.value;
+        updateOps[ops.propName] = ops.value;
     }
 
     Cellar.update({

@@ -3,7 +3,7 @@ const Bottle = require('../models/bottle');
 
 
 // afficher toute les bouteilles
-exports.display_all_bottle = (req, res, next) => {
+exports.get_all_bottles = (req, res, next) => {
 
     Bottle.find()
         .select("name domain vintage description _id")
@@ -29,7 +29,7 @@ exports.display_all_bottle = (req, res, next) => {
 };
 
 // afficher une bouteille en founction de son id
-exports.display_one = (req, res, next) => {
+exports.get_one = (req, res, next) => {
     Bottle.findById({ _id: req.params.id })
     .then( doc => {
         console.log("From database", doc);
