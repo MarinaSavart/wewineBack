@@ -11,10 +11,10 @@ router.post('/login', usersController.signup);
 router.post("/register", usersController.signin);
 
 // modifier un utilisateur
-router.patch('/update', checkAuth, usersController.update_user);+
+router.patch('/update', checkAuth, usersController.update_user);
 
 // supprimer un utilisateur
-router.delete('/:userId', checkAuth, usersController.delete_user);
+router.delete('/delete', checkAuth, usersController.delete_user);
 
 // afficher un utilisateur
 router.get('/getInfo', checkAuth, usersController.display_one);

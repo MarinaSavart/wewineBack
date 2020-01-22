@@ -11,7 +11,7 @@ router.get('/', checkAuth, bottlesController.get_all_bottles);
 router.get("/:id", checkAuth, bottlesController.get_one);
 
 // creer une bouteille
-router.post('/', checkAuth, bottlesController.create_bottle);
+router.post('/create', bottlesController.create_bottle);
 
 // modifier une bouteille
 router.patch('/:bottleId', checkAuth, bottlesController.update_bottle);

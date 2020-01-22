@@ -16,5 +16,8 @@ router.patch('/:cellarId', checkAuth, cellarsController.update_cellar);
 // supprimer une cave
 router.delete('/:cellarId', checkAuth, cellarsController.delete_cellar);
 
+// ajouter une bouteille à la cave
+router.post('/addBottle', checkAuth, cellarsController.add_bottle);
+
 
 module.exports = router;

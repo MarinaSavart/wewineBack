@@ -10,7 +10,7 @@ exports.get_all_cellars = (req, res, next) => {
     Cellar.find({
         userId: req.userData.userId
     })
-        .populate('Bottle')
+        .populate('bottles', "name description vintage domain color")
         .then(cellars => {
             console.log(cellars);
 
@@ -20,7 +20,7 @@ exports.get_all_cellars = (req, res, next) => {
                     _cellarId: cellar._id,
                     name: cellar.name,
                     maxContent: cellar.maxContent,
-                    bottles: cellar.bottlesId
+                    bottles: cellar.bottles
                 }))
             });
         })
@@ -100,6 +100,28 @@ exports.delete_cellar = (req, res, next) => {
         .catch(err => {
             console.log(err);
 
+            res.status(500).json({
+                error: err
+            })
+        });
+};
+
+// importer bouteille dans la cave 
+exports.add_bottle = (req, res, next) => {
+    console.log(req.body);
+    Cellar.findById(req.body.cellarId)
+        .then(cellar => {
+            
+            const newBottles = [...cellar.bottles, req.body.bottleId];
+        
+            return Cellar.updateOne({_id: req.body.cellarId}, {$set: { bottles: newBottles }})
+        })
+        .then(results => {
+            res.status(202).json({
+                results
+            })
+        })
+        .catch(err => {
             res.status(500).json({
                 error: err
             })

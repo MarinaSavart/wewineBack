@@ -5,7 +5,7 @@ const cellarSchema = Schema({
     name: { type: String, required: true },
     maxContent: { type: Number, required: true },
     userId: { type: Schema.Types.ObjectId, required: true },
-    bottlesId: [{ type: Schema.Types.ObjectId, ref: "Bottle" }]
+    bottles: [{ type: Schema.Types.ObjectId, ref: "Bottle" }]
 });
 
 module.exports = model('Cellar', cellarSchema);

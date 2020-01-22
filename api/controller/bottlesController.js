@@ -50,6 +50,7 @@ exports.create_bottle = (req, res, next) => {
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
         domain: req.body.domain,
+        color: req.body.color,
         vintage: req.body.vintage,
         description: req.body.description
     });

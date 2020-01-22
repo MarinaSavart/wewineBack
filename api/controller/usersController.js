@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const User = require('../models/user');
 const JWT = require('jsonwebtoken');
-const Cellars = require('./cellarsController');
+const Cellar = require('../models/cellar');
 
 // se connecter
 exports.signup = (req, res, next) => {
@@ -115,10 +115,13 @@ exports.update_user = (req, res, next) => {
 
     const updateOps = {};
     for (const ops of req.body) {
-        updateOps[ops.propsName] = ops.value;
+        updateOps[ops.propName] = ops.value;
     }
 
-    User.update({ _id: req.userData.userId }, { $set: updateOps})
+    User.update(
+        { _id: req.userData.userId }, 
+        { $set: updateOps})
+
         .then(result => {
             res.status(200).json(result);
         })
@@ -132,15 +135,19 @@ exports.update_user = (req, res, next) => {
 // delete user
 exports.delete_user = (req, res, next) => {
 
-    User.remove({ _id: req.params.userId})
+    User.remove({ _id: req.userData.userId})
+        .then(result => Cellar.remove({ userId: req.userData.userId }))
         .then(result => {
-            res.status(202).json(result);
+            res.status(201).json({
+                message: "Normalement tout est bon!"
+            });
         })
         .catch(err => {
             res.status(500).json({
-                error: err
+                err
             })
-        })
+        });
+    
 };
 
 // afficher un user
@@ -149,9 +156,15 @@ exports.display_one = (req, res, next) => {
         _id: req.userData.userId
     })
     .then(doc => {
-        console.log("From database:", doc);
 
-        res.status(200).json(doc);
+        let user = {...doc._doc};
+        Cellar.find(
+        { userId: req.userData.userId },(err, result) => {
+                user.cellarCount = result.length;
+                    res.status(200).json(user);
+                    console.log("From database:", user.cellarCount);
+        }) 
+
        
     })
     .catch(err => {
