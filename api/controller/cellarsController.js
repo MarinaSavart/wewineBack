@@ -108,14 +108,8 @@ exports.delete_cellar = (req, res, next) => {
 
 // importer bouteille dans la cave 
 exports.add_bottle = (req, res, next) => {
-    console.log(req.body);
-    Cellar.findById(req.body.cellarId)
-        .then(cellar => {
-            
-            const newBottles = [...cellar.bottles, req.body.bottleId];
-        
-            return Cellar.updateOne({_id: req.body.cellarId}, {$set: { bottles: newBottles }})
-        })
+
+    Cellar.updateOne({ _id: req.body.cellarId }, { $push: { bottles: req.body.bottleId } })
         .then(results => {
             res.status(202).json({
                 results
@@ -127,3 +121,25 @@ exports.add_bottle = (req, res, next) => {
             })
         });
 };
+
+exports.remove_bottle = (req, res, next) => {
+
+    Cellar.findByIdAndUpdate(
+        { _id: req.params.cellarId},
+        { $pull: { bottles: req.params.bottleId } },
+        { new: true }
+    )
+        .populate("bottles")
+        .then(result => {
+            console.log(result);
+
+            res.status(201).json({
+                result
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                err
+            })
+        })
+}
